@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './shared/home/home.component';
 import { FavoritosComponent } from './layout/autor/pages/favoritos/favoritos.component';
+import { AuthGuard } from './auth/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'pages',
+    // canActivate: [AuthGuard],
     component: HomeComponent,
     children: [
       {
@@ -26,6 +28,8 @@ const routes: Routes = [
   },
   {
     path: 'obras',
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     component: FavoritosComponent,
     children: [
       {

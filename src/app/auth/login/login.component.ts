@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UtilidadService } from 'src/app/shared/services/utilidad.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { UtilidadService } from 'src/app/shared/services/utilidad.service';
 export class LoginComponent {
   loading = false;
 
-  constructor(private router: Router, private _utilidadServicio: UtilidadService) {  }
+  constructor(private router: Router, private authService: AuthService, private _utilidadServicio: UtilidadService) {  }
 
   usuarioLogin = new FormGroup({
     usuario: new FormControl('admin', Validators.required),
@@ -19,9 +20,12 @@ export class LoginComponent {
   })
 
   ngOnInit(): void {}
-
   onSubmit() {
-    if (this.usuarioLogin.value.usuario=="admin" && this.usuarioLogin.value.password=="admin"){
+    const usuario = this.usuarioLogin.value.usuario ?? '';
+    const password = this.usuarioLogin.value.password ?? '';
+    const isLoggedIn = this.authService.login(usuario, password);
+
+    if (isLoggedIn) {
       this.loadSpinner();
     } else {
       this.error();

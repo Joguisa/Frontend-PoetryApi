@@ -1,0 +1,48 @@
+<div class="titulo">
+    <h1>Lista de Autores</h1>
+</div>
+<mat-card>
+    <mat-card-title>
+        <button mat-raised-button color="primary" style="margin: 5px 0 5px 20px;" (click)="irAFavoritos()">Favoritos</button>
+    </mat-card-title>
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="dashboard-card-content">
+        <mat-form-field appearance="fill">
+            <mat-label>Buscar</mat-label>
+            <input matInput (keyup)="aplicarFiltroTabla($event)" #input>
+        </mat-form-field>
+        <div class="mat-elevation-z2">
+            <mat-spinner *ngIf="loading" class="spinner" diameter="50"></mat-spinner>
+            <table *ngIf="!loading" mat-table [dataSource]="dataListAutor">
+                
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element;let i = index">{{ currentPage + i + 1 }}</td>
+                </ng-container>
+    
+                <ng-container matColumnDef="authors">
+                    <th mat-header-cell *matHeaderCellDef> Nombre del Autor </th>
+                    <td mat-cell *matCellDef="let element"> {{element.authors}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef style="width: 80px;"></th>
+                    <td mat-cell *matCellDef="let element">                    
+                        <button mat-stroked-button color="primary" (click)="verAutor(element.authors[0])">Ver Autor
+                        </button>
+                    </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+                <tr mat-row *matRowDef="let row; columns : columnasTabla;"></tr>
+    
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro "{{input.value}}"</td>
+                </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10,70,130]" showFirstLastButtons>
+            </mat-paginator>
+        </div>    
+    </mat-card-content>
+</mat-card>

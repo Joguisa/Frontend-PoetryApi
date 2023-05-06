@@ -1,0 +1,58 @@
+
+<div class="titulo">
+    <h1>Poemas favoritos</h1>
+</div>
+<mat-card>
+    <mat-card-title>
+        <button mat-raised-button color="primary" style="margin: 5px 0 5px 20px;" (click)="irAAutor()">Volver</button>
+    </mat-card-title>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="dashboard-card-content">
+        <div class="mat-elevation-z2">
+            <mat-spinner *ngIf="loading" class="spinner" diameter="50"></mat-spinner>
+            <table *ngIf="!loading" mat-table [dataSource]="dataListObras">
+
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element;let i = index">{{ currentPage + i + 1 }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="author">
+                    <th mat-header-cell *matHeaderCellDef>Autor</th>
+                    <td mat-cell *matCellDef="let element"> {{ element.author }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef>Título</th>
+                    <td mat-cell *matCellDef="let element">{{element.title}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="lines">
+                    <th mat-header-cell *matHeaderCellDef>Poema</th>
+                    <td mat-cell *matCellDef="let element"> {{ element.lines.join(' ') }} </td>
+                </ng-container>                
+
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef style="width: 80px;"></th>
+                    <td mat-cell *matCellDef="let element">                    
+                        <button mat-stroked-button color="primary" (click)="eliminarFavorito(element)">Eliminar
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+                <tr mat-row *matRowDef="let row; columns : columnasTabla;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No hay favoritos agregados</td>
+                </tr>
+                
+            </table>
+            <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons>
+            </mat-paginator>
+        </div>    
+    </mat-card-content>    
+</mat-card>
+

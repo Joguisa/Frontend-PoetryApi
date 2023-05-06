@@ -1,0 +1,15 @@
+table{
+    width: 100%;
+}
+
+mat-form-field{
+    font-size: 14px;
+    width: 100%;
+}
+.titulo {
+    text-align: center;
+    margin: 10px 0 0 0;
+}
+.spinner {
+    margin: 0 auto;
+}

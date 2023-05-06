@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+      <h1>
+          <strong>{{ "Evaluación" | uppercase }}</strong>
+      </h1>
+
+    <span style="flex: 1 1 auto"></span>
+
+    <button mat-icon-button (click)="cerrarSesion()">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container">
+  <div class="left-section">
+    <app-obras></app-obras>
+  </div>
+  <div class="right-section">
+    <div class="container">
+      <app-autores></app-autores>
+    </div>
+  </div>
+</div>
